@@ -1,0 +1,136 @@
+@use "variables";
+@use "mediaQueries";
+@use "text";
+
+// ─── Layer 1: Palette primitives ─────────────────────────────────────────────
+// IRISÈ reference palette (the -500 steps) plus the few shades the semantic
+// layer needs to keep text at WCAG AA. Never reference these in components.
+:root {
+	--palette-white: #ffffff;
+
+	--palette-blu-500: #a8bdc8; /* Blu Irisè — principale */
+	--palette-blu-700: #8aa3b0;
+
+	--palette-azzurro-500: #dce4e3; /* Azzurro luce — secondario */
+
+	--palette-lino-100: #f8f4ec;
+	--palette-lino-500: #f1e9da; /* Lino — neutro */
+
+	--palette-cotto-500: #bd8065; /* Cotto — accento caldo */
+	--palette-cotto-700: #92593f; /* text-safe Cotto: 4.6:1 on Lino, 5.6:1 under white */
+	--palette-cotto-900: #7a4833;
+
+	--palette-ardesia-300: #6b7f86;
+	--palette-ardesia-500: #4e6269; /* Ardesia — contrasto */
+	--palette-ardesia-700: #34454b;
+	--palette-ardesia-900: #243034;
+
+	--palette-error-500: #a33a2b;
+	--palette-success-500: #3d6647;
+}
+
+// ─── Layer 2: Semantic tokens ─────────────────────────────────────────────────
+// Components reference only these — never palette values directly.
+:root {
+	--color-bg: var(--palette-lino-500);
+	--color-bg-raised: var(--palette-lino-100);
+	--color-bg-sunken: var(--palette-azzurro-500);
+	--color-bg-brand: var(--palette-blu-500);
+	--color-bg-inverse: var(--palette-ardesia-500);
+
+	--color-text: var(--palette-ardesia-700);
+	--color-text-secondary: var(--palette-ardesia-500);
+	--color-text-disabled: var(--palette-ardesia-300);
+	--color-text-inverse: var(--palette-lino-500);
+	--color-text-inverse-secondary: var(--palette-azzurro-500);
+
+	--color-border: var(--palette-ardesia-300);
+	--color-border-focus: var(--palette-cotto-700);
+
+	// Interactive colour (buttons, links, focus) is the warm accent; Blu Irisè
+	// carries the brand as a surface (--color-bg-brand) where it reads best.
+	--color-primary: var(--palette-cotto-700);
+	--color-primary-hover: var(--palette-cotto-900);
+	--color-primary-text: var(--palette-white);
+
+	--color-accent: var(--palette-cotto-500);
+	--color-accent-hover: var(--palette-cotto-700);
+
+	--color-error: var(--palette-error-500);
+	--color-success: var(--palette-success-500);
+	--color-warning: var(--palette-cotto-700);
+
+	// next/font variables are set on <html> in app/[locale]/layout.tsx.
+	--font-body: var(--font-inter), system-ui, -apple-system, sans-serif;
+	--font-heading: var(--font-cormorant), Georgia, serif;
+}
+
+// Dark mode is not enabled: <html> is hard-set to data-theme="light". Add a
+// [data-theme="dark"] block remapping Layer 2 here when it is needed.
+
+// ─── CSS Reset ────────────────────────────────────────────────────────────────
+*,
+*::after,
+*::before {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	box-sizing: border-box;
+	font-family: inherit;
+}
+
+html,
+body {
+	scroll-behavior: smooth;
+	height: -webkit-fill-available;
+
+	background-color: var(--color-bg);
+	color: var(--color-text);
+
+	-ms-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+
+	font-family: var(--font-body);
+	font-size: #{variables.$font-md}px;
+	line-height: 1.5;
+}
+
+body {
+	overflow-x: hidden;
+	// Prevents layout shift when a scrollbar appears/disappears
+	margin-right: calc(-1 * (100vw - 100%));
+
+	&.freeze {
+		overflow-y: hidden;
+	}
+}
+
+main {
+	width: 100%;
+	height: 100%;
+}
+
+a {
+	color: var(--color-primary);
+	text-decoration: none;
+
+	&:hover,
+	&:focus {
+		color: var(--color-primary-hover);
+	}
+}
+
+button {
+	cursor: pointer;
+	background-color: transparent;
+	text-decoration: none;
+	color: inherit;
+}
+
+section {
+	margin: 3rem auto;
+}

@@ -1,0 +1,45 @@
+{
+	"hero": {
+		"eyebrow": "Yoga · Massage · Workshops",
+		"lead": "A space to breathe, all year round.",
+		"subtitle": "Recurring, inspiring activities in a safe and cosy place, open to the community and to anyone passing through.",
+		"cta": "Join the newsletter",
+		"date": "Opening day · {date}",
+		"imageAlt": "Sarah in a yoga pose in front of the mountains",
+		"language": "Language"
+	},
+	"inauguration": {
+		"eyebrow": "Opening day",
+		"title": "See you on {date}",
+		"body": "Irisè opens its doors: come and meet the space, the people and the activities that will fill it all year round.",
+		"dayLabel": "Irisè opening day"
+	},
+	"newsletter": {
+		"eyebrow": "Newsletter",
+		"title": "Stay in touch",
+		"description": "An occasional email with the activity calendar, new workshops and the opening-day details.",
+		"email": "Your email",
+		"submit": "Subscribe",
+		"loading": "Sending…",
+		"consent": "By subscribing you agree to receive our emails. You can unsubscribe at any time.",
+		"success": "Thank you! You're on the list.",
+		"error": "Something went wrong. Please try again shortly.",
+		"invalidEmail": "Enter a valid email address"
+	},
+	"footer": {
+		"tagline": "Yoga, massage and workshops all year round.",
+		"contacts": "Contacts",
+		"copyright": "All rights reserved",
+		"credits": "Website by"
+	},
+	"notFound": {
+		"title": "Page not found",
+		"description": "The page you are looking for does not exist.",
+		"backHome": "Back to home"
+	},
+	"error": {
+		"title": "Something went wrong",
+		"description": "An unexpected error occurred.",
+		"retry": "Try again"
+	}
+}
