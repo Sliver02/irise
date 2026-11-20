@@ -1,0 +1,101 @@
+@use "../../../designSystem/mediaQueries" as mq;
+@use "../../../designSystem/utils";
+@use "../../../designSystem/variables";
+
+.footer {
+	padding: 4rem 0 2rem;
+	color: var(--color-text-inverse);
+	background-color: var(--color-bg-inverse);
+}
+
+.top {
+	display: grid;
+	gap: 3rem;
+
+	@include mq.media("lg") {
+		grid-template-columns: 1fr 2fr;
+	}
+}
+
+.wordmark {
+	font-family: var(--font-heading);
+	@include utils.toRem(font-size, variables.$font-h-sm);
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+}
+
+.tagline {
+	color: var(--color-text-inverse-secondary);
+}
+
+.heading {
+	composes: text--eyebrow from global;
+	font-family: var(--font-body);
+	color: var(--color-text-inverse-secondary);
+}
+
+.people {
+	display: grid;
+	gap: 2rem;
+	margin-top: 1.25rem;
+
+	@include mq.media("md") {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+.person {
+	font-style: normal;
+}
+
+.name {
+	font-family: var(--font-heading);
+	@include utils.toRem(font-size, variables.$font-xl);
+	font-weight: 500;
+}
+
+.list {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	margin-top: 0.75rem;
+	list-style: none;
+}
+
+.link {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	color: var(--color-text-inverse);
+	text-decoration: underline;
+	text-decoration-color: transparent;
+	text-underline-offset: 0.25em;
+	transition: text-decoration-color 0.2s ease;
+
+	&:hover,
+	&:focus {
+		color: var(--color-text-inverse);
+		text-decoration-color: currentColor;
+	}
+}
+
+.icon {
+	display: inline-flex;
+	color: var(--color-text-inverse-secondary);
+}
+
+.bottom {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	margin-top: 4rem;
+	padding-top: 1.5rem;
+	border-top: 1px solid color-mix(in srgb, var(--color-text-inverse) 20%, transparent);
+	@include utils.toRem(font-size, variables.$font-sm);
+	color: var(--color-text-inverse-secondary);
+
+	@include mq.media("md") {
+		flex-direction: row;
+		justify-content: space-between;
+	}
+}

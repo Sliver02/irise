@@ -1,0 +1,87 @@
+@use "../../../designSystem/mediaQueries" as mq;
+@use "../../../designSystem/utils";
+@use "../../../designSystem/variables";
+
+.root {
+	--calendar-cell: 2.5rem;
+	color: var(--color-text);
+
+	@include mq.media("sm") {
+		--calendar-cell: 3rem;
+	}
+}
+
+.caption {
+	margin-bottom: 1rem;
+	text-align: center;
+}
+
+.captionLabel {
+	font-family: var(--font-heading);
+	@include utils.toRem(font-size, variables.$font-xxl);
+	text-transform: capitalize;
+}
+
+.grid {
+	border-collapse: collapse;
+}
+
+.weekday {
+	width: var(--calendar-cell);
+	padding-bottom: 0.5rem;
+	@include utils.toRem(font-size, variables.$font-sm);
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.day {
+	position: relative;
+	isolation: isolate;
+	width: var(--calendar-cell);
+	height: var(--calendar-cell);
+	text-align: center;
+	// The global reset sets vertical-align: baseline, which pins numbers to the cell top.
+	vertical-align: middle;
+	font-variant-numeric: tabular-nums;
+}
+
+.highlight {
+	color: var(--color-primary-text);
+	font-weight: 700;
+
+	// Filled disc behind the number, plus a soft halo that pulses a few times
+	// to draw the eye, then rests.
+	&::before,
+	&::after {
+		content: "";
+		position: absolute;
+		inset: 0.2rem;
+		z-index: -1;
+		border-radius: 50%;
+		background-color: var(--color-primary);
+	}
+
+	&::after {
+		background-color: var(--color-accent);
+		opacity: 0;
+		animation: halo 2.4s ease-out 0.6s 3;
+	}
+}
+
+@keyframes halo {
+	from {
+		opacity: 0.6;
+		transform: scale(1);
+	}
+	to {
+		opacity: 0;
+		transform: scale(1.7);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.highlight::after {
+		animation: none;
+	}
+}

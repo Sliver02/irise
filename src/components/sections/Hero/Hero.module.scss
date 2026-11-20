@@ -1,0 +1,149 @@
+@use "../../../designSystem/mediaQueries" as mq;
+@use "../../../designSystem/utils";
+@use "../../../designSystem/variables";
+
+.hero {
+	position: relative;
+	isolation: isolate;
+	display: flex;
+	// svh: mobile browser chrome does not push the bottom text off-screen.
+	min-height: 100svh;
+	margin: 0;
+	overflow: hidden;
+	color: var(--color-text-inverse);
+	background-color: var(--color-bg-inverse);
+
+	// Ardesia veil: darker at the bottom where the copy sits, a lighter band at
+	// the top for the chips, the photo left clear in between.
+	&::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		background:
+			linear-gradient(
+				to bottom,
+				color-mix(in srgb, var(--color-bg-inverse) 50%, transparent),
+				transparent 25%
+			),
+			linear-gradient(
+				to top,
+				color-mix(in srgb, var(--color-bg-inverse) 92%, transparent),
+				color-mix(in srgb, var(--color-bg-inverse) 45%, transparent) 50%,
+				transparent 75%
+			);
+	}
+}
+
+.image {
+	z-index: -2;
+	object-fit: cover;
+	object-position: center 35%;
+	animation: settle 1.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+
+	@media (prefers-reduced-motion: reduce) {
+		animation: none;
+	}
+}
+
+@keyframes settle {
+	from {
+		transform: scale(1.06);
+	}
+}
+
+.content {
+	justify-content: space-between;
+	gap: 3rem;
+	padding-top: 1.25rem;
+	padding-bottom: clamp(2.5rem, 8svh, 5rem);
+}
+
+.topBar {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+	gap: 0.75rem;
+}
+
+// Frosted pill: its own dark fill keeps the text legible over a bright sky.
+.chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.5rem 1rem;
+	border-radius: 999px;
+	border: 1px solid color-mix(in srgb, var(--color-text-inverse) 30%, transparent);
+	background-color: color-mix(in srgb, var(--color-bg-inverse) 65%, transparent);
+	backdrop-filter: blur(8px);
+	@include utils.toRem(font-size, variables.$font-sm);
+	font-weight: 500;
+	letter-spacing: 0.04em;
+	color: var(--color-text-inverse);
+
+	&:hover,
+	&:focus-visible {
+		color: var(--color-text-inverse);
+		border-color: var(--color-text-inverse);
+	}
+}
+
+.language {
+	padding: 0 0.25rem;
+	color: var(--color-text-inverse-secondary);
+
+	&:hover,
+	&:focus {
+		color: var(--color-text-inverse);
+	}
+
+	&[aria-current] {
+		color: var(--color-text-inverse);
+		text-decoration: underline;
+		text-underline-offset: 0.3em;
+	}
+}
+
+.body {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	max-width: 40rem;
+}
+
+.eyebrow {
+	composes: text--eyebrow from global;
+	color: var(--color-text-inverse-secondary);
+}
+
+.title {
+	margin-top: 0.5rem;
+	font-size: clamp(4.5rem, 16vw, 10rem);
+	font-weight: 400;
+	line-height: 0.95;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+}
+
+.lead {
+	margin-top: 1rem;
+	font-family: var(--font-heading);
+	font-style: italic;
+	@include utils.toRem(font-size, variables.$font-xxl);
+	line-height: 1.2;
+
+	@include mq.media("md") {
+		@include utils.toRem(font-size, variables.$font-h-sm);
+	}
+}
+
+.subtitle {
+	max-width: 32rem;
+	margin-top: 1rem;
+	color: var(--color-text-inverse-secondary);
+}
+
+.cta {
+	margin-top: 2rem;
+}

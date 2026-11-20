@@ -1,0 +1,69 @@
+@use "../../../designSystem/mediaQueries" as mq;
+@use "../../../designSystem/utils";
+@use "../../../designSystem/variables";
+
+.newsletter {
+	margin: 0;
+	padding: clamp(4rem, 12vw, 7rem) 0;
+	background-color: var(--color-bg-sunken);
+}
+
+.inner {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	max-width: 34rem;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.eyebrow {
+	composes: text--eyebrow from global;
+	color: var(--color-text-secondary); // Cotto falls under 4.5:1 on Azzurro luce
+}
+
+.title {
+	margin-top: 0.75rem;
+	@include utils.toRem(font-size, variables.$font-h-md);
+
+	@include mq.media("md") {
+		@include utils.toRem(font-size, variables.$font-h-lg);
+	}
+}
+
+.description {
+	margin-top: 1rem;
+	color: var(--color-text-secondary);
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+	width: 100%;
+	margin-top: 2rem;
+	text-align: left;
+
+	@include mq.media("sm") {
+		flex-direction: row;
+		align-items: flex-start;
+	}
+}
+
+// Same height as the floating-label input next to it.
+.submit {
+	flex-shrink: 0;
+	min-height: 3.375rem;
+}
+
+.consent {
+	margin-top: 1rem;
+	@include utils.toRem(font-size, variables.$font-sm);
+	color: var(--color-text-secondary);
+}
+
+.alert {
+	width: 100%;
+	margin-top: 1.5rem;
+	text-align: left;
+}

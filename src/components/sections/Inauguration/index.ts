@@ -1,0 +1,1 @@
+export { Inauguration } from "./Inauguration";
