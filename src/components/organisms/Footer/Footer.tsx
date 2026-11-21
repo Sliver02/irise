@@ -1,6 +1,7 @@
 import { RouteEnum } from "@/common/routeEnum";
 import { Container } from "@/components/atoms/Grid";
 import { Instagram } from "@/components/atoms/SocialIcons";
+import classNames from "classnames";
 import { Mail, Phone } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { ReactNode } from "react";
@@ -21,7 +22,7 @@ const CONTACTS: Contact[] = [
 		],
 	},
 	{
-		name: "Barbara Calligaro",
+		name: "Barbara “Dallo” Calligaro",
 		links: [
 			{
 				href: RouteEnum.BARBARA_EMAIL,
@@ -29,6 +30,11 @@ const CONTACTS: Contact[] = [
 				icon: <Mail size={16} />,
 			},
 			{ href: RouteEnum.BARBARA_PHONE, label: "+39 000 000 0000", icon: <Phone size={16} /> },
+			{
+				href: RouteEnum.BARBARA_INSTAGRAM,
+				label: "@barbaradallo",
+				icon: <Instagram size={16} />,
+			},
 		],
 	},
 ];
@@ -43,6 +49,17 @@ export const Footer = () => {
 					<div>
 						<p className={styles.wordmark}>Irise</p>
 						<p className={styles.tagline}>{t("tagline")}</p>
+						<a
+							href={RouteEnum.IRISE_INSTAGRAM}
+							className={classNames(styles.link, styles.social)}
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							<span className={styles.icon} aria-hidden>
+								<Instagram size={16} />
+							</span>
+							@spazio_irise
+						</a>
 					</div>
 
 					<div>

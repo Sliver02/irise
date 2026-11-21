@@ -3,6 +3,8 @@ export enum RouteEnum {
 	INAUGURATION = "#inauguration",
 	NEWSLETTER = "#newsletter",
 
+	IRISE_INSTAGRAM = "https://www.instagram.com/spazio_irise/",
+
 	SARAH_EMAIL = "mailto:smup.yoga@gmail.com",
 	SARAH_PHONE = "tel:+393661450576",
 	SARAH_INSTAGRAM = "https://www.instagram.com/smup_yoga/",
@@ -10,4 +12,5 @@ export enum RouteEnum {
 	// TODO: Barbara's real contacts — placeholders until she confirms them.
 	BARBARA_EMAIL = "mailto:barbara@example.com",
 	BARBARA_PHONE = "tel:+390000000000",
+	BARBARA_INSTAGRAM = "https://www.instagram.com/barbaradallo/",
 }
