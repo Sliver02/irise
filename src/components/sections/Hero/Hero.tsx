@@ -52,8 +52,9 @@ export const Hero = () => {
 				</div>
 
 				<div className={styles.body}>
+					{/* The logo is painted by a CSS mask; the text stays for screen readers. */}
+					<h1 className={styles.logo}>Irise</h1>
 					<p className={styles.eyebrow}>{t("eyebrow")}</p>
-					<h1 className={styles.title}>Irisè</h1>
 					<p className={styles.lead}>{t("lead")}</p>
 					<p className={styles.subtitle}>{t("subtitle")}</p>
 					<Button

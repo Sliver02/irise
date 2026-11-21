@@ -2,6 +2,8 @@
 @use "../../../designSystem/utils";
 @use "../../../designSystem/variables";
 
+$veil: var(--color-bg-inverse);
+
 .hero {
 	position: relative;
 	isolation: isolate;
@@ -13,32 +15,40 @@
 	color: var(--color-text-inverse);
 	background-color: var(--color-bg-inverse);
 
-	// Ardesia veil: darker at the bottom where the copy sits, a lighter band at
-	// the top for the chips, the photo left clear in between.
+	// Ardesia veil. Phones: the copy covers the whole photo, so the veil does
+	// too, heaviest at the bottom. From lg: the copy sits on the left, so the
+	// veil fades out to leave the woman and the heart clear on the right.
 	&::after {
 		content: "";
 		position: absolute;
 		inset: 0;
 		z-index: -1;
-		background:
-			linear-gradient(
-				to bottom,
-				color-mix(in srgb, var(--color-bg-inverse) 50%, transparent),
-				transparent 25%
-			),
-			linear-gradient(
-				to top,
-				color-mix(in srgb, var(--color-bg-inverse) 92%, transparent),
-				color-mix(in srgb, var(--color-bg-inverse) 45%, transparent) 50%,
-				transparent 75%
-			);
+		background: linear-gradient(
+			to top,
+			color-mix(in srgb, #{$veil} 92%, transparent),
+			color-mix(in srgb, #{$veil} 60%, transparent) 50%,
+			color-mix(in srgb, #{$veil} 45%, transparent)
+		);
+
+		@include mq.media("lg") {
+			background:
+				linear-gradient(to bottom, color-mix(in srgb, #{$veil} 45%, transparent), transparent 20%),
+				linear-gradient(
+					to right,
+					color-mix(in srgb, #{$veil} 88%, transparent),
+					color-mix(in srgb, #{$veil} 60%, transparent) 35%,
+					transparent 65%
+				);
+		}
 	}
 }
 
 .image {
 	z-index: -2;
 	object-fit: cover;
-	object-position: center 35%;
+	// x matters on phones (portrait crop), y on desktop (landscape crop):
+	// both keep the heart and the woman in frame.
+	object-position: 65% 60%;
 	animation: settle 1.8s cubic-bezier(0.22, 1, 0.36, 1) both;
 
 	@media (prefers-reduced-motion: reduce) {
@@ -53,10 +63,9 @@
 }
 
 .content {
-	justify-content: space-between;
-	gap: 3rem;
+	gap: 2rem;
 	padding-top: 1.25rem;
-	padding-bottom: clamp(2.5rem, 8svh, 5rem);
+	padding-bottom: clamp(2.5rem, 6svh, 4rem);
 }
 
 .topBar {
@@ -75,10 +84,10 @@
 	padding: 0.5rem 1rem;
 	border-radius: 999px;
 	border: 1px solid color-mix(in srgb, var(--color-text-inverse) 30%, transparent);
-	background-color: color-mix(in srgb, var(--color-bg-inverse) 65%, transparent);
+	background-color: color-mix(in srgb, #{$veil} 65%, transparent);
 	backdrop-filter: blur(8px);
 	@include utils.toRem(font-size, variables.$font-sm);
-	font-weight: 500;
+	font-weight: 600;
 	letter-spacing: 0.04em;
 	color: var(--color-text-inverse);
 
@@ -105,33 +114,49 @@
 	}
 }
 
+// Centered on phones; from lg a column on the left, over the dark side of the veil.
 .body {
+	flex: 1;
 	display: flex;
 	flex-direction: column;
-	align-items: flex-start;
-	max-width: 40rem;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+
+	@include mq.media("lg") {
+		align-self: flex-start;
+		width: min(100%, 32rem);
+	}
+}
+
+.logo {
+	width: clamp(8rem, 38vw, 12rem);
+	aspect-ratio: 510 / 1120;
+	background-color: var(--color-text-inverse);
+	mask: url("/images/logo-vertical.svg") center / contain no-repeat;
+	// Image replacement: the heading text is moved out of view, not removed.
+	overflow: hidden;
+	white-space: nowrap;
+	text-indent: 200%;
+
+	@include mq.media("lg") {
+		width: auto;
+		height: min(50svh, 28rem);
+	}
 }
 
 .eyebrow {
 	composes: text--eyebrow from global;
+	margin-top: 2rem;
 	color: var(--color-text-inverse-secondary);
 }
 
-.title {
-	margin-top: 0.5rem;
-	font-size: clamp(4.5rem, 16vw, 10rem);
-	font-weight: 400;
-	line-height: 0.95;
-	letter-spacing: 0.06em;
-	text-transform: uppercase;
-}
-
 .lead {
-	margin-top: 1rem;
+	margin-top: 0.75rem;
 	font-family: var(--font-heading);
-	font-style: italic;
-	@include utils.toRem(font-size, variables.$font-xxl);
-	line-height: 1.2;
+	font-weight: 700;
+	@include utils.toRem(font-size, variables.$font-h-xs);
+	line-height: 1.1;
 
 	@include mq.media("md") {
 		@include utils.toRem(font-size, variables.$font-h-sm);
@@ -139,11 +164,11 @@
 }
 
 .subtitle {
-	max-width: 32rem;
-	margin-top: 1rem;
+	max-width: 30rem;
+	margin-top: 0.75rem;
 	color: var(--color-text-inverse-secondary);
 }
 
 .cta {
-	margin-top: 2rem;
+	margin-top: 1.75rem;
 }
