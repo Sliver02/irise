@@ -8,15 +8,22 @@ import { locales } from "@/i18n/routing";
 import classNames from "classnames";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-import { Cormorant_Garamond, Inter } from "next/font/google";
+import localFont from "next/font/local";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+// Amatic SC has capitals only: keep it to short titles.
+const amatic = localFont({
+	src: "../../fonts/AmaticSC-Bold.ttf",
+	weight: "700",
+	variable: "--font-amatic",
+});
 
-const cormorant = Cormorant_Garamond({
-	subsets: ["latin"],
-	weight: ["400", "500"],
-	style: ["normal", "italic"],
-	variable: "--font-cormorant",
+const nunito = localFont({
+	src: [
+		{ path: "../../fonts/NunitoSans-Regular.ttf", weight: "400" },
+		{ path: "../../fonts/NunitoSans-SemiBold.ttf", weight: "600" },
+		{ path: "../../fonts/NunitoSans-Bold.ttf", weight: "700" },
+	],
+	variable: "--font-nunito",
 });
 
 export const generateMetadata = rootMeta;
@@ -39,7 +46,7 @@ export default async function LocaleLayout({
 		<html
 			lang={locale}
 			data-theme="light"
-			className={classNames(inter.variable, cormorant.variable)}
+			className={classNames(nunito.variable, amatic.variable)}
 		>
 			<head>
 				<script

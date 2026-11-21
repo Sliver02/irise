@@ -61,8 +61,8 @@
 	--color-warning: var(--palette-cotto-700);
 
 	// next/font variables are set on <html> in app/[locale]/layout.tsx.
-	--font-body: var(--font-inter), system-ui, -apple-system, sans-serif;
-	--font-heading: var(--font-cormorant), Georgia, serif;
+	--font-body: var(--font-nunito), system-ui, -apple-system, sans-serif;
+	--font-heading: var(--font-amatic), system-ui, sans-serif;
 }
 
 // Dark mode is not enabled: <html> is hard-set to data-theme="light". Add a
