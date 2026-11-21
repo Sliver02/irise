@@ -5,7 +5,7 @@ import type { Locale } from "@/i18n/routing";
 
 // TODO: confirm the production domain (no trailing slash).
 export const SITE_URL = "https://irise.it";
-export const SITE_NAME = "Irisè";
+export const SITE_NAME = "Irise";
 
 /** `og:locale` value for each supported locale. */
 export const OG_LOCALE: Record<Locale, string> = { en: "en_US", it: "it_IT" };
@@ -19,12 +19,12 @@ export const pages: Record<PageRoute, Page> = {
 	[RouteEnum.HOME]: {
 		image: "og.jpg",
 		it: {
-			title: "Irisè | Yoga, massaggi e workshop",
+			title: "Irise | Yoga, massaggi e workshop",
 			description:
 				"Yoga, massaggi e workshop tutto l'anno in uno spazio sicuro e accogliente, con Sarah Pompanin e Barbara Calligaro. Inaugurazione sabato 5 dicembre.",
 		},
 		en: {
-			title: "Irisè | Yoga, massage and workshops",
+			title: "Irise | Yoga, massage and workshops",
 			description:
 				"Yoga, massage and workshops all year round in a safe, cosy space, with Sarah Pompanin and Barbara Calligaro. Opening day Saturday 5 December.",
 		},

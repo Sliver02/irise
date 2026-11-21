@@ -41,7 +41,7 @@ export const Footer = () => {
 			<Container>
 				<div className={styles.top}>
 					<div>
-						<p className={styles.wordmark}>Irisè</p>
+						<p className={styles.wordmark}>Irise</p>
 						<p className={styles.tagline}>{t("tagline")}</p>
 					</div>
 
@@ -83,7 +83,7 @@ export const Footer = () => {
 
 				<p className={styles.bottom}>
 					<span>
-						© {new Date().getFullYear()} Irisè — {t("copyright")}
+						© {new Date().getFullYear()} Irise — {t("copyright")}
 					</span>
 					<span>
 						{t("credits")}{" "}
