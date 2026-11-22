@@ -56,6 +56,12 @@ const TEXT = {
 			`<p><a href="${link}">Conferma l'iscrizione</a></p>` +
 			"<p>Se non hai chiesto tu l'iscrizione, ignora questa email: senza conferma non ti scriveremo.</p>" +
 			"<p>A presto,<br>Irise</p>",
+		welcomeSubject: "Ti diamo il benvenuto nella newsletter di Irise",
+		welcomeHtml: (unsubscribeLink) =>
+			"<p>Grazie per l'iscrizione!</p>" +
+			"<p>Ogni tanto ti scriveremo con il calendario delle attività, i nuovi workshop e i dettagli dell'inaugurazione.</p>" +
+			"<p>A presto,<br>Irise</p>" +
+			`<hr><p style="font-size:12px;color:#666">Hai cambiato idea? <a href="${unsubscribeLink}">Annulla l'iscrizione</a></p>`,
 		footerHtml: (link) =>
 			"Ricevi questa email perché hai confermato l'iscrizione alla newsletter di Irise. " +
 			`<a href="${link}">Annulla l'iscrizione</a>`,
@@ -68,6 +74,12 @@ const TEXT = {
 			`<p><a href="${link}">Confirm subscription</a></p>` +
 			"<p>If you didn't ask to subscribe, ignore this email: without confirmation we won't write to you.</p>" +
 			"<p>See you soon,<br>Irise</p>",
+		welcomeSubject: "Welcome to the Irise newsletter",
+		welcomeHtml: (unsubscribeLink) =>
+			"<p>Thanks for subscribing!</p>" +
+			"<p>Every now and then we'll write to you with the activity calendar, new workshops and the opening-day details.</p>" +
+			"<p>See you soon,<br>Irise</p>" +
+			`<hr><p style="font-size:12px;color:#666">Changed your mind? <a href="${unsubscribeLink}">Unsubscribe</a></p>`,
 		footerHtml: (link) =>
 			"You get this email because you subscribed to the Irise newsletter. " +
 			`<a href="${link}">Unsubscribe</a>`,
@@ -157,16 +169,25 @@ function setStatus(token, status) {
 	sh.getRange(i + 1, (status === "confirmed" ? COL.confirmedAt : COL.unsubscribedAt) + 1).setValue(new Date());
 
 	if (status === "confirmed") {
-		try {
-			MailApp.sendEmail({
+		// The subscription is saved: a failed email must not undo it, so each one fails on its own.
+		const t = TEXT[r[COL.locale]] || TEXT.it;
+		const html = t.welcomeHtml(link(r[COL.locale], "unsubscribe", token));
+		const emails = [
+			{ to: r[COL.email], subject: t.welcomeSubject, htmlBody: html, body: toText(html), name: SENDER_NAME, replyTo: OWNER },
+			{
 				to: OWNER,
 				subject: `Nuova iscrizione alla newsletter: ${r[COL.email]}`,
 				body:
 					`${r[COL.email]} ha confermato l'iscrizione alla newsletter (lingua: ${r[COL.locale]}).\n\n` +
 					`Lista completa: ${SpreadsheetApp.getActiveSpreadsheet().getUrl()}`,
-			});
-		} catch (err) {
-			console.error(err); // the subscription is saved: a failed notification must not undo it
+			},
+		];
+		for (const email of emails) {
+			try {
+				MailApp.sendEmail(email);
+			} catch (err) {
+				console.error(err);
+			}
 		}
 	}
 	return true;

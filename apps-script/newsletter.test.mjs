@@ -52,18 +52,21 @@ assert.match(mails[0].body, /Confirm subscription \(https:\/\/spazioirise\.com\/
 assert.equal(post({ action: "subscribe", email: "anna@example.com", locale: "en" }), true);
 assert.equal(mails.length, 1);
 
-// confirm -> confirmed + owner notified; second click ok, no extra mail
+// confirm -> confirmed + welcome to subscriber (in their locale) + owner notified; second click ok, no extra mail
 assert.equal(post({ action: "confirm", token: "tok-1" }), true);
 assert.equal(row("anna@example.com")[C.status], "confirmed");
-assert.equal(mails[1].to, "smup.yoga@gmail.com");
+assert.equal(mails[1].to, "anna@example.com");
+assert.match(mails[1].subject, /Welcome/);
+assert.match(mails[1].htmlBody, /\/en\/newsletter\?action=unsubscribe&token=tok-1">Unsubscribe/);
+assert.equal(mails[2].to, "smup.yoga@gmail.com");
 assert.equal(post({ action: "confirm", token: "tok-1" }), true);
-assert.equal(mails.length, 2);
+assert.equal(mails.length, 3);
 assert.equal(post({ action: "confirm", token: "wrong" }), false);
 assert.equal(post({ action: "confirm" }), false);
 
 // subscribe while confirmed: silent ok
 assert.equal(post({ action: "subscribe", email: "anna@example.com", locale: "it" }), true);
-assert.equal(mails.length, 2);
+assert.equal(mails.length, 3);
 
 // second subscriber, Italian, confirmed; third pending (must not get newsletter)
 post({ action: "subscribe", email: "marco@example.it", locale: "it" });

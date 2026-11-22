@@ -23,6 +23,14 @@
 		"loading": "Sending…",
 		"consent": "By subscribing you agree to receive our emails. You can unsubscribe at any time.",
 		"success": "Almost done! We've sent you an email: open it to confirm your subscription.",
+		"successDirect": "Thank you! You're on the list: we've sent you a confirmation email.",
+		"confirmation": {
+			"subject": "Welcome to the Irise newsletter",
+			"title": "Thanks for subscribing!",
+			"body": "Every now and then we'll write to you with the activity calendar, new workshops and the opening-day details.",
+			"unsubscribe": "If you no longer want our emails, reply to this message and we'll take you off the list.",
+			"signoff": "See you soon, Irise"
+		},
 		"error": "Something went wrong. Please try again shortly.",
 		"invalidEmail": "Enter a valid email address",
 		"manage": {

@@ -268,7 +268,8 @@ Newsletter form (react-hook-form + zod)
   → script: row "pending" + confirmation email with /{locale}/newsletter?action=confirm&token=…
 /newsletter page (NewsletterManage) — the subscriber clicks the button
   → callNewsletter({ action: "confirm" | "unsubscribe", token })
-  → script: row "confirmed" + notification to smup.yoga@gmail.com, or row "unsubscribed"
+  → script: row "confirmed" + welcome email to the subscriber + notification to smup.yoga@gmail.com,
+    or row "unsubscribed"
 Sheet menu Newsletter > Invia bozza
   → sends the "[Newsletter] …" Gmail draft to each confirmed row, with its own unsubscribe link
 ```
@@ -276,6 +277,12 @@ Sheet menu Newsletter > Invia bozza
 This gives double opt-in, a stored record of consent (text, date, confirmation date) and a
 one-click unsubscribe link in every newsletter. The `/newsletter` page waits for a click, because
 mail scanners open links in advance. The page is `noindex`.
+
+**Fallback while the script isn't deployed** (`NEXT_PUBLIC_NEWSLETTER_URL` empty): the form sends
+two emails through the EmailJS template shared with smup-yoga and panz-snowboard (its "To Email" is
+`{{reciver_email}}`): one to `NEXT_PUBLIC_RECEIVER_EMAIL`, one welcome to the subscriber, built from
+`common/emailTemplates/NewsletterTemplate.tsx`. No Sheet, no double opt-in: the list is kept by hand.
+Never turn on Auto-Reply on that template: it would reply to every contact form of the other sites.
 
 ## Header scroll behaviour
 

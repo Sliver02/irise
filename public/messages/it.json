@@ -23,6 +23,14 @@
 		"loading": "Invio…",
 		"consent": "Iscrivendoti accetti di ricevere le nostre email. Puoi cancellarti in qualsiasi momento.",
 		"success": "Quasi fatto! Ti abbiamo scritto: apri l'email e conferma l'iscrizione.",
+		"successDirect": "Grazie! Sei nella lista: ti abbiamo mandato un'email di conferma.",
+		"confirmation": {
+			"subject": "Ti diamo il benvenuto nella newsletter di Irise",
+			"title": "Grazie per l'iscrizione!",
+			"body": "Ogni tanto ti scriveremo con il calendario delle attività, i nuovi workshop e i dettagli dell'inaugurazione.",
+			"unsubscribe": "Se non vuoi più ricevere le nostre email, rispondi a questo messaggio e ti toglieremo dalla lista.",
+			"signoff": "A presto, Irise"
+		},
 		"error": "Qualcosa non ha funzionato. Riprova tra poco.",
 		"invalidEmail": "Inserisci un indirizzo email valido",
 		"manage": {
