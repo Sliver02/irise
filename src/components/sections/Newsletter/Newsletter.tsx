@@ -1,27 +1,30 @@
 "use client";
 
-import NewsletterTemplate from "@/common/emailTemplates/NewsletterTemplate";
 import { AlertResponse } from "@/common/globalInterfaces";
 import { Alert } from "@/components/atoms/Alert";
 import { Button } from "@/components/atoms/Button";
 import { Container } from "@/components/atoms/Grid";
 import { Input } from "@/components/atoms/Input";
-import emailjs from "@emailjs/browser";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
-import { renderToStaticMarkup } from "react-dom/server";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import styles from "./Newsletter.module.scss";
 
-const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE as string;
-const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE as string;
-const publicKey = process.env.NEXT_PUBLIC_EMAILJS_KEY as string;
+const NEWSLETTER_URL = process.env.NEXT_PUBLIC_NEWSLETTER_URL as string;
 
-// ponytail: each sign-up is emailed to the inbox via EmailJS and the list is kept by
-// hand. Move to a mailing-list service (Brevo, Mailchimp…) once sending newsletters
-// needs unsubscribe links and bulk delivery.
+/**
+ * Calls the Apps Script web app in `apps-script/newsletter.gs`, which keeps the list in a
+ * Google Sheet and sends every email. The body goes as text/plain (fetch's default for a
+ * string), so the browser skips the CORS preflight that Apps Script can't answer.
+ */
+export const callNewsletter = async (body: Record<string, string>) => {
+	const res = await fetch(NEWSLETTER_URL, { method: "POST", body: JSON.stringify(body) });
+	const { ok } = (await res.json()) as { ok?: boolean };
+	return ok === true;
+};
+
 export const Newsletter = () => {
 	const t = useTranslations("newsletter");
 	const locale = useLocale();
@@ -43,21 +46,8 @@ export const Newsletter = () => {
 			setLoading(true);
 			setAlert(null);
 
-			const res = await emailjs.send(
-				serviceId,
-				templateId,
-				{
-					name: email,
-					email,
-					title: `Newsletter subscription: ${email}`,
-					message_html: renderToStaticMarkup(
-						<NewsletterTemplate email={email} locale={locale} />
-					),
-				},
-				publicKey
-			);
-
-			if (res.text === "OK") {
+			// Double opt-in: the script emails a confirmation link, nobody is on the list until they click it.
+			if (await callNewsletter({ action: "subscribe", email, locale, consent: t("consent") })) {
 				setAlert({ severity: "success", text: t("success") });
 				reset();
 			} else {

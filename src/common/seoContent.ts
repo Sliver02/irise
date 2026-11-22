@@ -3,15 +3,15 @@ import { RouteEnum } from "@/common/routeEnum";
 import type { Page } from "@/common/seo";
 import type { Locale } from "@/i18n/routing";
 
-// TODO: confirm the production domain (no trailing slash).
-export const SITE_URL = "https://irise.it";
+// Production domain (no trailing slash).
+export const SITE_URL = "https://spazioirise.com";
 export const SITE_NAME = "Irise";
 
 /** `og:locale` value for each supported locale. */
 export const OG_LOCALE: Record<Locale, string> = { en: "en_US", it: "it_IT" };
 
 /** Routes that are real pages (anchors, mailto:, tel: and external URLs are excluded). */
-export type PageRoute = RouteEnum.HOME;
+export type PageRoute = RouteEnum.HOME | RouteEnum.NEWSLETTER_PAGE;
 
 // Every page route needs copy in every locale. TypeScript fails the build when one is missing.
 // Titles ≤ ~50 chars (SITE_NAME is appended), descriptions ≤ ~160, images under 5 MB.
@@ -27,6 +27,18 @@ export const pages: Record<PageRoute, Page> = {
 			title: "Irise | Yoga, massage and workshops",
 			description:
 				"Yoga, massage and workshops all year round in a safe, cosy space, with Sarah Pompanin and Barbara Calligaro. Opening day Saturday 5 December.",
+		},
+	},
+	[RouteEnum.NEWSLETTER_PAGE]: {
+		image: "og.jpg",
+		noindex: true,
+		it: {
+			title: "Newsletter",
+			description: "Conferma o annulla l'iscrizione alla newsletter di Irise.",
+		},
+		en: {
+			title: "Newsletter",
+			description: "Confirm or cancel your subscription to the Irise newsletter.",
 		},
 	},
 };

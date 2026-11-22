@@ -22,9 +22,28 @@
 		"submit": "Iscriviti",
 		"loading": "Invio…",
 		"consent": "Iscrivendoti accetti di ricevere le nostre email. Puoi cancellarti in qualsiasi momento.",
-		"success": "Grazie! Sei nella lista.",
+		"success": "Quasi fatto! Ti abbiamo scritto: apri l'email e conferma l'iscrizione.",
 		"error": "Qualcosa non ha funzionato. Riprova tra poco.",
-		"invalidEmail": "Inserisci un indirizzo email valido"
+		"invalidEmail": "Inserisci un indirizzo email valido",
+		"manage": {
+			"confirm": {
+				"title": "Conferma l'iscrizione",
+				"description": "Un clic e sei nella lista della newsletter di Irise.",
+				"button": "Conferma",
+				"done": "Fatto! Da ora riceverai la newsletter di Irise."
+			},
+			"unsubscribe": {
+				"title": "Annulla l'iscrizione",
+				"description": "Non riceverai più la newsletter di Irise.",
+				"button": "Annulla l'iscrizione",
+				"done": "Fatto. Non riceverai più le nostre email. Se cambi idea, puoi iscriverti di nuovo dalla home."
+			},
+			"invalid": {
+				"title": "Link non valido",
+				"description": "Questo link non è valido o è già stato usato. Per iscriverti, usa il modulo nella home."
+			},
+			"backHome": "Torna alla home"
+		}
 	},
 	"footer": {
 		"tagline": "Yoga, massaggi e workshop tutto l'anno.",

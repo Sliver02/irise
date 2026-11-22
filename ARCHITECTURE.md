@@ -255,18 +255,27 @@ Static imports supply intrinsic `width`/`height` too. Pass explicit values only 
 
 Images referenced from `openGraph` metadata stay plain absolute URL strings — those are consumed by external crawlers, not by `next/image`.
 
-## Contact form flow
+## Newsletter flow
+
+The mailing list is a Google Sheet owned by smup.yoga@gmail.com. A Google Apps Script bound to
+that sheet ([apps-script/newsletter.gs](apps-script/newsletter.gs)) is the only backend: it stores
+subscribers and sends every email from that Gmail account. Setup and sending steps are at the top
+of that file.
 
 ```
-useForm (react-hook-form + zod)
-  → onSubmit
-  → renderToStaticMarkup(<ContactTemplate />) — builds HTML email body server-side
-  → emailjs.send(serviceId, templateId, { message_html, name, email }, publicKey)
-  → setAlert({ severity: "success" | "error", text })
-  → reset() on success
+Newsletter form (react-hook-form + zod)
+  → callNewsletter({ action: "subscribe", email, locale, consent })  POST to NEXT_PUBLIC_NEWSLETTER_URL
+  → script: row "pending" + confirmation email with /{locale}/newsletter?action=confirm&token=…
+/newsletter page (NewsletterManage) — the subscriber clicks the button
+  → callNewsletter({ action: "confirm" | "unsubscribe", token })
+  → script: row "confirmed" + notification to smup.yoga@gmail.com, or row "unsubscribed"
+Sheet menu Newsletter > Invia bozza
+  → sends the "[Newsletter] …" Gmail draft to each confirmed row, with its own unsubscribe link
 ```
 
-EmailJS credentials come from `NEXT_PUBLIC_EMAILJS_*` env vars. The template on the EmailJS dashboard receives `message_html` as the email body — configure it there, not in code.
+This gives double opt-in, a stored record of consent (text, date, confirmation date) and a
+one-click unsubscribe link in every newsletter. The `/newsletter` page waits for a click, because
+mail scanners open links in advance. The page is `noindex`.
 
 ## Header scroll behaviour
 
@@ -288,5 +297,3 @@ Never use default exports from barrel files. Always use named exports:
 export { Button } from "./Button";
 export type { ButtonProps } from "./Button";
 ```
-
-The email templates under `common/emailTemplates/` are the deliberate exception (default export, rendered via `renderToStaticMarkup`).
