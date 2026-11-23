@@ -28,10 +28,6 @@
 	color: var(--color-text-inverse-secondary);
 }
 
-.social {
-	margin-top: 1rem;
-}
-
 .heading {
 	composes: text--eyebrow from global;
 	font-family: var(--font-body);

@@ -3,6 +3,7 @@ export enum RouteEnum {
 	INAUGURATION = "#inauguration",
 	NEWSLETTER = "#newsletter",
 
+	IRISE_EMAIL = "mailto:info@spazioirise.com", // ImprovMX forwards it to smup.yoga@gmail.com
 	IRISE_INSTAGRAM = "https://www.instagram.com/spazio_irise/",
 
 	SARAH_EMAIL = "mailto:smup.yoga@gmail.com",
