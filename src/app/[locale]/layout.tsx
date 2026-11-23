@@ -8,6 +8,7 @@ import { locales } from "@/i18n/routing";
 import classNames from "classnames";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
+import { Nunito } from "next/font/google";
 import localFont from "next/font/local";
 
 // Amatic SC has capitals only: keep it to short titles.
@@ -17,14 +18,8 @@ const amatic = localFont({
 	variable: "--font-amatic",
 });
 
-const nunito = localFont({
-	src: [
-		{ path: "../../fonts/NunitoSans-Regular.ttf", weight: "400" },
-		{ path: "../../fonts/NunitoSans-SemiBold.ttf", weight: "600" },
-		{ path: "../../fonts/NunitoSans-Bold.ttf", weight: "700" },
-	],
-	variable: "--font-nunito",
-});
+// Variable font: every weight from one file, self-hosted by next/font at build time.
+const nunito = Nunito({ subsets: ["latin"], variable: "--font-nunito" });
 
 export const generateMetadata = rootMeta;
 
