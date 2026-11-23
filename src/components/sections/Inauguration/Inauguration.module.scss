@@ -5,6 +5,8 @@
 .inauguration {
 	margin: 0;
 	padding: clamp(4rem, 12vw, 8rem) 0;
+	// Azzurro: a clear cut from the Lino hero panel above.
+	background-color: var(--color-bg-sunken);
 }
 
 .inner {
@@ -18,7 +20,7 @@
 
 .eyebrow {
 	composes: text--eyebrow from global;
-	color: var(--color-primary);
+	color: var(--color-text-secondary); // Cotto falls under 4.5:1 on Azzurro luce
 }
 
 .title {

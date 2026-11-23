@@ -5,7 +5,7 @@
 .newsletter {
 	margin: 0;
 	padding: clamp(4rem, 12vw, 7rem) 0;
-	background-color: var(--color-bg-sunken);
+	background-color: var(--color-bg);
 }
 
 .inner {
@@ -19,7 +19,7 @@
 
 .eyebrow {
 	composes: text--eyebrow from global;
-	color: var(--color-text-secondary); // Cotto falls under 4.5:1 on Azzurro luce
+	color: var(--color-primary);
 }
 
 .title {
