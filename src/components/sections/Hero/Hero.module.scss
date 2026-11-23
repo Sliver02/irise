@@ -133,7 +133,7 @@ $veil: var(--color-bg-inverse);
 }
 
 .logo {
-	width: clamp(8rem, 38vw, 12rem);
+	width: clamp(10rem, 46vw, 15rem);
 	aspect-ratio: 510 / 1120;
 	background-color: var(--color-text);
 	mask: url("/images/logo-vertical.svg") center / contain no-repeat;
@@ -144,7 +144,7 @@ $veil: var(--color-bg-inverse);
 
 	@include mq.media("lg") {
 		width: auto;
-		height: min(50svh, 28rem);
+		height: min(60svh, 36rem);
 	}
 }
 
@@ -152,6 +152,7 @@ $veil: var(--color-bg-inverse);
 	composes: text--eyebrow from global;
 	margin-top: 2rem;
 	color: var(--color-text-secondary);
+	white-space: pre-line; // honours the "\n" in the message, like the flyer's two lines
 }
 
 .lead {
@@ -160,9 +161,18 @@ $veil: var(--color-bg-inverse);
 	font-weight: 700;
 	@include utils.toRem(font-size, variables.$font-h-xs);
 	line-height: 1.1;
+	white-space: pre-line; // honours the "\n" in the message
 
 	@include mq.media("md") {
 		@include utils.toRem(font-size, variables.$font-h-sm);
+	}
+
+	@include mq.media("lg") {
+		@include utils.toRem(font-size, variables.$font-h-md);
+	}
+
+	@include mq.media("xl") {
+		@include utils.toRem(font-size, variables.$font-h-lg);
 	}
 }
 

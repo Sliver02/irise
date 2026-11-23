@@ -1,7 +1,8 @@
+import { ADDRESS } from "@/common/constants";
 import { RouteEnum } from "@/common/routeEnum";
 import { Container } from "@/components/atoms/Grid";
 import { Instagram } from "@/components/atoms/SocialIcons";
-import { Mail, Phone } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { ReactNode } from "react";
 import styles from "./Footer.module.scss";
@@ -21,14 +22,9 @@ const CONTACTS: Contact[] = [
 		],
 	},
 	{
-		name: "Barbara “Dallo” Calligaro",
+		name: "Barbara Dall’Ò",
 		links: [
-			{
-				href: RouteEnum.BARBARA_EMAIL,
-				label: "barbara@example.com",
-				icon: <Mail size={16} />,
-			},
-			{ href: RouteEnum.BARBARA_PHONE, label: "+39 000 000 0000", icon: <Phone size={16} /> },
+			{ href: RouteEnum.BARBARA_PHONE, label: "+39 335 784 7337", icon: <Phone size={16} /> },
 			{
 				href: RouteEnum.BARBARA_INSTAGRAM,
 				label: "@barbaradallo",
@@ -49,6 +45,19 @@ export const Footer = () => {
 						<p className={styles.wordmark}>Irise</p>
 						<p className={styles.tagline}>{t("tagline")}</p>
 						<ul className={styles.list}>
+							<li>
+								<a
+									href={RouteEnum.MAP}
+									className={styles.link}
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									<span className={styles.icon} aria-hidden>
+										<MapPin size={16} />
+									</span>
+									{ADDRESS.street}, {ADDRESS.city}
+								</a>
+							</li>
 							<li>
 								<a href={RouteEnum.IRISE_EMAIL} className={styles.link}>
 									<span className={styles.icon} aria-hidden>

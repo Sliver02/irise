@@ -1,8 +1,8 @@
 {
 	"hero": {
-		"eyebrow": "Yoga · Massaggi · Workshop",
-		"lead": "Uno spazio per respirare, tutto l'anno.",
-		"subtitle": "Attività ricorrenti e stimolanti in un luogo sicuro e accogliente, aperto alla comunità e a chi è di passaggio.",
+		"eyebrow": "Yoga · Pilates · Meditazione\nTrattamenti Ayurveda · Workshop",
+		"lead": "Un luogo in cui sentirsi accolti,\nmuoversi e prendersi cura di sé.",
+		"subtitle": "Esperienze diverse, da scoprire e vivere secondo le proprie esigenze, con i propri tempi.",
 		"cta": "Iscriviti alla newsletter",
 		"date": "Inaugurazione · {date}",
 		"imageAlt": "Una ragazza disegna un cuore sul vetro appannato, davanti alle montagne innevate",
@@ -11,7 +11,8 @@
 	"inauguration": {
 		"eyebrow": "Inaugurazione",
 		"title": "Ci vediamo {date}",
-		"body": "Apriamo le porte di Irise: vieni a conoscere lo spazio, le persone e le attività che lo animeranno tutto l'anno.",
+		"body": "Vieni a conoscere Irise: lo spazio, le persone e le attività che lo animeranno tutto l'anno.",
+		"time": "Ci trovate dalle 16:00",
 		"dayLabel": "inaugurazione di Irise"
 	},
 	"newsletter": {
@@ -27,7 +28,7 @@
 		"invalidEmail": "Inserisci un indirizzo email valido"
 	},
 	"footer": {
-		"tagline": "Yoga, massaggi e workshop tutto l'anno.",
+		"tagline": "Yoga, pilates, meditazione, trattamenti ayurveda e workshop.",
 		"contacts": "Contatti",
 		"copyright": "Tutti i diritti riservati",
 		"credits": "Sito di"
