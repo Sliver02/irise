@@ -2,7 +2,6 @@ export enum RouteEnum {
 	HOME = "/",
 	INAUGURATION = "#inauguration",
 	NEWSLETTER = "#newsletter",
-	NEWSLETTER_PAGE = "/newsletter", // confirm / unsubscribe links from our emails
 
 	IRISE_INSTAGRAM = "https://www.instagram.com/spazio_irise/",
 

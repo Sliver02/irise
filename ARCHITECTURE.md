@@ -257,32 +257,24 @@ Images referenced from `openGraph` metadata stay plain absolute URL strings — 
 
 ## Newsletter flow
 
-The mailing list is a Google Sheet owned by smup.yoga@gmail.com. A Google Apps Script bound to
-that sheet ([apps-script/newsletter.gs](apps-script/newsletter.gs)) is the only backend: it stores
-subscribers and sends every email from that Gmail account. Setup and sending steps are at the top
-of that file.
+The mailing list lives in MailerLite (Free plan, account owned by smup.yoga@gmail.com).
+MailerLite sends the confirmation email, keeps the list, adds the unsubscribe link to every
+newsletter and handles bounces. Newsletters are written and sent from the MailerLite dashboard.
 
 ```
 Newsletter form (react-hook-form + zod)
-  → callNewsletter({ action: "subscribe", email, locale, consent })  POST to NEXT_PUBLIC_NEWSLETTER_URL
-  → script: row "pending" + confirmation email with /{locale}/newsletter?action=confirm&token=…
-/newsletter page (NewsletterManage) — the subscriber clicks the button
-  → callNewsletter({ action: "confirm" | "unsubscribe", token })
-  → script: row "confirmed" + welcome email to the subscriber + notification to smup.yoga@gmail.com,
-    or row "unsubscribed"
-Sheet menu Newsletter > Invia bozza
-  → sends the "[Newsletter] …" Gmail draft to each confirmed row, with its own unsubscribe link
+  → POST /api/newsletter { email, locale }      src/app/api/newsletter/route.ts
+  → POST https://connect.mailerlite.com/api/subscribers  (Bearer MAILERLITE_API_KEY)
+  → MailerLite: subscriber "unconfirmed" + double opt-in email → "active" after the click
 ```
 
-This gives double opt-in, a stored record of consent (text, date, confirmation date) and a
-one-click unsubscribe link in every newsletter. The `/newsletter` page waits for a click, because
-mail scanners open links in advance. The page is `noindex`.
+`MAILERLITE_API_KEY` is server-only (no `NEXT_PUBLIC_` prefix): set it in `.env.local` and in
+the Netlify site settings (then trigger a new deploy). Double opt-in must be on in the MailerLite account settings, since
+the API follows that setting. `locale` is saved only if a custom field with the key `locale`
+exists in MailerLite. Unknown field keys are ignored.
 
-**Fallback while the script isn't deployed** (`NEXT_PUBLIC_NEWSLETTER_URL` empty): the form sends
-two emails through the EmailJS template shared with smup-yoga and panz-snowboard (its "To Email" is
-`{{reciver_email}}`): one to `NEXT_PUBLIC_RECEIVER_EMAIL`, one welcome to the subscriber, built from
-`common/emailTemplates/NewsletterTemplate.tsx`. No Sheet, no double opt-in: the list is kept by hand.
-Never turn on Auto-Reply on that template: it would reply to every contact form of the other sites.
+Use only Free plan features. The Free plan allows 250 subscribers and 2,500 emails a month.
+When the list goes over the cap, MailerLite pauses sending.
 
 ## Header scroll behaviour
 
