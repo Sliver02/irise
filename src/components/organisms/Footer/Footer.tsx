@@ -120,7 +120,7 @@ export const Footer = () => {
 
 				<p className={styles.bottom}>
 					<span>
-						© {new Date().getFullYear()} Irise — {t("copyright")}
+						© {new Date().getFullYear()} Irise — {t("copyright")} — P.IVA 01296210253
 					</span>
 					<span>
 						{t("credits")}{" "}
